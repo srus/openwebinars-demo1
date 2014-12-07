@@ -1,0 +1,1 @@
+![parejas](img/parejas.png)
