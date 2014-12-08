@@ -89,17 +89,22 @@
      * @param {Number} size - el tamaño del array.
      */
     function createRandomSet(size) {
-        var arr, i;
+        var xs, i, j, k;
 
-        for (i = 1, arr = []; i <= size; i++) {
-            arr[i - 1] = i;
+        for (i = 1, xs = []; i <= size; i++) {
+            xs[i - 1] = i;
         }
 
-        arr.sort(function() {
-            return Math.random() - Math.random();
-        });
+        i = size;
+        while (i > 1) {
+            i--;
+            j = Math.random() * i | 0;
+            k = xs[i];
+            xs[i] = xs[j];
+            xs[j] = k;
+        }
 
-        return arr;
+        return xs;
     }
 
     /**
