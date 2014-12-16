@@ -50,7 +50,7 @@
         i = size;
         while (i > 1) {
             i -= 1;
-            j = Math.random() * i || 0;
+            j = Math.random() * i | 0;
             k = xs[i];
             xs[i] = xs[j];
             xs[j] = k;
@@ -90,15 +90,15 @@
             img2,
             i;
 
-        for (i = 0; i < size; i += 2) {
+        for (i = 0; i < set1.length; i += 1) {
             // Crear todas las imágenes y añadirlas a las celdas de
             // la cuadrícula. Las imágenes se van añadiendo de dos en dos,
             // configurando la ruta de cada imagen a partir de los conjuntos de
             // números aleatorios `set1` y `set2`.
             img1 = createImgPath(config, set1[i]);
             img2 = createImgPath(config, set2[i]);
-            cells[i].innerHTML = "<img src ='" + img1 + "' visibility='hidden'/>'";
-            cells[i + 1].innerHTML = "<img src ='" + img2 + "' visibility='hidden'/>'";
+            cells[i].innerHTML = "<img src ='" + img1 + "' />";
+            cells[i + 8].innerHTML = "<img src ='" + img2 + "' />";
         }
     }
 
@@ -112,14 +112,14 @@
             item1,
             item2;
 
-        if (locked) {
+        if (!locked) {
 
             // - Eliminar el manejador del evento en la celda actual (para evitar más clicks).
             // - Obtener el nodo imagen de la celda, mostrar la imagen y
             //   almacenar un nuevo objeto al array `couple`.
             self.removeEventListener('click', clickHandler);
             img = self.querySelector("img");
-            img.setAttribute('visibility', 'visible');
+            img.style.opacity = 100;
             couple.push(self);
 
             if (couple.length === 2) {
@@ -141,8 +141,8 @@
                     // ambas imágenes, añadir de nuevo los manejadores del evento
                     // 'click' de sus celdas y bajar de nuevo la bandera de bloqueo.
                     window.setTimeout(function () {
-                        item1.querySelector("img").setAttribute('visibility', 'hidden');
-                        item2.querySelector("img").setAttribute('visibility', 'hidden');
+                        item1.querySelector("img").style.opacity = 0;
+                        item2.querySelector("img").style.opacity = 0;
                         item1.addEventListener('click', clickHandler);
                         item2.addEventListener('click', clickHandler);
                         locked = false;
