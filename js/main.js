@@ -32,17 +32,12 @@
     };
 
 
-    // TODO: Usar algún metodo del DOM para obtener todas celdas de la cuadrícula.
     cells = document.querySelectorAll('.grid-cell');
 
-
-    // TODO: Añadir manejadores del evento 'click' a todas las celdas.
     for (var i = 0; i < cells.length; i++) {
         cells[i].addEventListener('click', clickHandler, false);
     }
 
-
-    // TODO: Llamada a la función principal `setImages()`.
     setImages(config, cells);
 
 
@@ -64,10 +59,6 @@
             i;
 
         for (i = 0; i < size; i += 2) {
-            // TODO: Crear todas las imágenes y añadirlas a las celdas de
-            // la cuadrícula. Las imágenes se van añadiendo de dos en dos,
-            // configurando la ruta de cada imagen a partir de los conjuntos de
-            // números aleatorios `set1` y `set2`.
             img1 = new Image();
             img2 = new Image();
             img1.draggable = false;
@@ -130,11 +121,6 @@
             item2;
 
         if (!locked) {
-
-            // TODO:
-            // - Eliminar el manejador del evento en la celda actual (para evitar más clicks).
-            // - Obtener el nodo imagen de la celda, mostrar la imagen y
-            //   almacenar un nuevo objeto al array `couple`.
             self.removeEventListener('click', clickHandler, false);
             img = self.firstElementChild;
             img.style.opacity = 1;
@@ -142,22 +128,13 @@
             couple.push({cell: self, img: img, imgName: imgName});
 
             if (couple.length === 2) {
-
-                // TODO: Levantar la bandera de bloqueo y extraer la pareja.
                 locked = true;
                 item1 = couple.pop();
                 item2 = couple.pop();
 
                 if (item1.imgName === item2.imgName) {
-
-                    // Bajar de nuevo la bandera de bloqueo.
                     locked = false;
-
                 } else {
-
-                    // Crear un temporizador de 2 segundos para ocultar de nuevo
-                    // ambas imágenes, añadir de nuevo los manejadores del evento
-                    // 'click' de sus celdas y bajar de nuevo la bandera de bloqueo.
                     setTimeout(function() {
                         item1.cell.addEventListener('click', clickHandler, false);
                         item2.cell.addEventListener('click', clickHandler, false);
