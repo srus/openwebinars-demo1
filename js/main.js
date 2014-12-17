@@ -1,5 +1,7 @@
 (function(window, document) {
 
+    'use strict';
+
         // {Object} - Rutas y descripción de las imágenes.
     var config,
 
