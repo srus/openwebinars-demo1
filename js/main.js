@@ -95,10 +95,14 @@
             // la cuadrícula. Las imágenes se van añadiendo de dos en dos,
             // configurando la ruta de cada imagen a partir de los conjuntos de
             // números aleatorios `set1` y `set2`.
-            img1 = createImgPath(config, set1[i]);
-            img2 = createImgPath(config, set2[i]);
-            cells[i].innerHTML = "<img src ='" + img1 + "' />";
-            cells[i + 8].innerHTML = "<img src ='" + img2 + "' />";
+            img1 = new Image();
+            img2 = new Image();
+            img1.draggable = false;
+            img2.draggable = false;
+            img1.src = createImgPath(config, set1[i]);
+            img2.src = createImgPath(config, set2[i]);
+            cells[i].appendChild(img1);
+            cells[i + 8].appendChild(img2);
         }
     }
 
