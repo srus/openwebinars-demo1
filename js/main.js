@@ -123,7 +123,7 @@
             //   almacenar un nuevo objeto al array `couple`.
             self.removeEventListener('click', clickHandler);
             img = self.querySelector("img");
-            img.style.opacity = 100;
+            img.style.opacity = 1;
             couple.push(self);
 
             if (couple.length === 2) {
