@@ -33,15 +33,17 @@
 
 
     // TODO: Usar algún metodo del DOM para obtener todas celdas de la cuadrícula.
-
+    cells = document.querySelectorAll('.grid-cell');
 
 
     // TODO: Añadir manejadores del evento 'click' a todas las celdas.
-
+    for (var i = 0; i < cells.length; i++) {
+        cells[i].addEventListener('click', clickHandler, false);
+    }
 
 
     // TODO: Llamada a la función principal `setImages()`.
-
+    setImages(config, cells);
 
 
 
@@ -66,6 +68,14 @@
             // la cuadrícula. Las imágenes se van añadiendo de dos en dos,
             // configurando la ruta de cada imagen a partir de los conjuntos de
             // números aleatorios `set1` y `set2`.
+            img1 = new Image();
+            img2 = new Image();
+            img1.draggable = false;
+            img2.draggable = false;
+            img1.src = createImgPath(config, set1[i / 2]);
+            img2.src = createImgPath(config, set2[i / 2]);
+            cells[i].appendChild(img1);
+            cells[i + 1].appendChild(img2);
         }
     }
 
@@ -119,30 +129,43 @@
             item1,
             item2;
 
-        if (/* TODO: Comprobar si está levantada la bandera de bloqueo. */) {
+        if (!locked) {
 
             // TODO:
             // - Eliminar el manejador del evento en la celda actual (para evitar más clicks).
             // - Obtener el nodo imagen de la celda, mostrar la imagen y
             //   almacenar un nuevo objeto al array `couple`.
+            self.removeEventListener('click', clickHandler, false);
+            img = self.firstElementChild;
+            img.style.opacity = 1;
+            imgName = img.src.split('/').pop();
+            couple.push({cell: self, img: img, imgName: imgName});
 
-
-            if (/* TODO: Comprobar si en el array ya tenemos una pareja */) {
+            if (couple.length === 2) {
 
                 // TODO: Levantar la bandera de bloqueo y extraer la pareja.
+                locked = true;
+                item1 = couple.pop();
+                item2 = couple.pop();
 
-                if (/* TODO: Comprobar si tenemos una pareja válida */) {
+                if (item1.imgName === item2.imgName) {
 
                     // Bajar de nuevo la bandera de bloqueo.
+                    locked = false;
 
                 } else {
 
                     // Crear un temporizador de 2 segundos para ocultar de nuevo
                     // ambas imágenes, añadir de nuevo los manejadores del evento
                     // 'click' de sus celdas y bajar de nuevo la bandera de bloqueo.
-
+                    setTimeout(function() {
+                        item1.cell.addEventListener('click', clickHandler, false);
+                        item2.cell.addEventListener('click', clickHandler, false);
+                        item1.img.style.opacity = 0;
+                        item2.img.style.opacity = 0;
+                        locked = false;
+                    }, 2000);
                 }
-
             }
         }
     }
